@@ -5,7 +5,9 @@ UI = {
 
   ShowHelpNotification = function(name, items)
     local now = GetGameTimer()
-    if UI.Current ~= name or ((now - UI.Last_Call) >= 2.5) then  
+    local pause = IsPauseMenuActive()
+    if (UI.Current ~= name or ((now - UI.Last_Call) >= 2.5)) and pause ~= 1 then  
+
       UI.Current = name
       UI.Objects = items
       SetNuiFocusKeepInput(true)
@@ -27,10 +29,13 @@ UI = {
 
 }
 
+
+
 Update = function()
   while true do 
     if UI.Current then 
-      if (GetGameTimer() - UI.Last_Call) >= 300 then 
+      local pause = IsPauseMenuActive()
+      if ((GetGameTimer() - UI.Last_Call) >= 300) or pause == 1 then 
         UI.Hide()
       end
     else
@@ -49,6 +54,7 @@ end
 
 --[[
 local UI = exports['dirk-shn']:GetObject()
+
 
 while true do 
   UI.ShowHelpNotification("stealing", {
