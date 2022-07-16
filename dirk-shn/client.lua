@@ -50,7 +50,6 @@ end
 --[[
 local UI = exports['dirk-shn']:GetObject()
 
-
 while true do 
   UI.ShowHelpNotification("stealing", {
     {
